@@ -1,7 +1,5 @@
 package com.notejava.demo;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -52,7 +50,9 @@ public class ExcelUtils {
                 row.createCell(k).setCellValue(propertyValue == null ? "" : propertyValue.toString());
             }
         }
-        workbook.write(new FileOutputStream(new File(fileName)));
+        FileOutputStream fileOutputStream = new FileOutputStream(new File(fileName));
+        workbook.write(fileOutputStream);
+        fileOutputStream.close();
         workbook.close();
     }
 }

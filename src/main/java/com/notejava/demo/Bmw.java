@@ -78,18 +78,19 @@ public class Bmw {
 
         Map headerMapper = new LinkedHashMap(11);
         headerMapper.put("material", "编号");
+        headerMapper.put("name", "名称");
         headerMapper.put("retailPrice", "零售价");
         headerMapper.put("stock", "经销商净值");
-        //headerMapper.put("beijingPrice", "北京价格");
-        headerMapper.put("beijingInventory", "北京库存");
-        //headerMapper.put("shanghaiPrice", "上海价格");
-        headerMapper.put("shanghaiInventory", "上海库存");
-        //headerMapper.put("foshanPrice", "佛山价格");
-        headerMapper.put("foshanInventory", "佛山库存");
-        //headerMapper.put("chengduPrice", "成都价格");
-        headerMapper.put("chengduInventory", "成都库存");
-        //headerMapper.put("shengyangPrice", "沈阳价格");
-        headerMapper.put("shengyangInventory", "沈阳库存");
+        headerMapper.put("beijingPrice", "北京库存");
+        headerMapper.put("beijingInventory", "北京可用库存");
+        headerMapper.put("shanghaiPrice", "上海库存");
+        headerMapper.put("shanghaiInventory", "上海可用库存");
+        headerMapper.put("foshanPrice", "佛山库存");
+        headerMapper.put("foshanInventory", "佛山可用库存");
+        headerMapper.put("chengduPrice", "成都库存");
+        headerMapper.put("chengduInventory", "成都可用库存");
+        headerMapper.put("shengyangPrice", "沈阳库存");
+        headerMapper.put("shengyangInventory", "沈阳可用库存");
 
         ExcelUtils.export(headerMapper, componentsList, userDir + File.separator + "bmw_" + System.currentTimeMillis() + ".xlsx");
     }
@@ -123,33 +124,41 @@ public class Bmw {
 
         Elements children = trElement.children();
 
+        Element nameElement = children.get(1);
+        String name = getName(nameElement);
+        components.setName(name);
+
         Element element = children.get(3);
         String retailPrice = element.html();
         components.setRetailPrice(retailPrice);
 
-        Element beijing = children.get(7);
-        //System.out.println(beijing);
-        //components.setBeijingPrice(getPrice(beijing));
-        components.setBeijingInventory(getInventory(beijing));
+        try {
+            Element beijing = children.get(7);
+            components.setBeijingPrice(getPrice(beijing));
+            components.setBeijingInventory(getInventory(beijing));
+        } catch (Exception e) {
+            //System.out.println(body);
+            throw e;
+        }
 
         Element shanghai = children.get(11);
         //.out.println(shanghai);
-        //components.setShanghaiPrice(getPrice(shanghai));
+        components.setShanghaiPrice(getPrice(shanghai));
         components.setShanghaiInventory(getInventory(shanghai));
 
         Element foshan = children.get(15);
         //System.out.println(foshan);
-        //components.setFoshanPrice(getPrice(foshan));
+        components.setFoshanPrice(getPrice(foshan));
         components.setFoshanInventory(getInventory(foshan));
 
         Element chengdu = children.get(19);
         //System.out.println(chengdu);
-        //components.setChengduPrice(getPrice(chengdu));
+        components.setChengduPrice(getPrice(chengdu));
         components.setChengduInventory(getInventory(chengdu));
 
         Element shengyang = children.get(23);
         //System.out.println(shengyang);
-        //components.setShengyangPrice(getPrice(shengyang));
+        components.setShengyangPrice(getPrice(shengyang));
         components.setShengyangInventory(getInventory(shengyang));
 
         String stock = getStock(material);
@@ -157,6 +166,20 @@ public class Bmw {
 
         //System.out.println(components);
         return components;
+    }
+
+    private static String getName(Element element) {
+        String html = element.html();
+        if (StringUtil.isBlank(html)) {
+            return null;
+        }
+        String str = "<br>";
+        int index = html.indexOf(str);
+        if (index < 0) {
+            return null;
+        }
+        String name = html.substring(index + str.length());
+        return name;
     }
 
     private static String getPrice(Element element) {
