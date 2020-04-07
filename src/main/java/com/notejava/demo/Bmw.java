@@ -2,10 +2,7 @@ package com.notejava.demo;
 
 import org.apache.commons.compress.utils.Lists;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -45,6 +42,7 @@ public class Bmw {
         FileInputStream fileInputStream = new FileInputStream(file);
         Workbook workbook = null;
         try {
+            System.out.println("读取文件中...");
             workbook = new XSSFWorkbook(fileInputStream);
         } catch (Exception ex) {
             workbook = new HSSFWorkbook(fileInputStream);
@@ -52,11 +50,14 @@ public class Bmw {
         Sheet sheet = workbook.getSheetAt(0);
         int physicalNumberOfRows = sheet.getPhysicalNumberOfRows();
         List<Components> componentsList = Lists.newArrayList();
-        ExecutorService executorService = Executors.newFixedThreadPool(50);
+        ExecutorService executorService = Executors.newFixedThreadPool(20);
+        System.out.println("开始...");
         for (int i = 1; i < physicalNumberOfRows; i++) {
             Row row = sheet.getRow(i);
             Cell cell = row.getCell(0);
+            cell.setCellType(CellType.STRING);
             String material = cell.getStringCellValue();
+
             if (!StringUtil.isBlank(material)) {
                 executorService.submit(() -> {
                     try {
@@ -91,6 +92,8 @@ public class Bmw {
         headerMapper.put("chengduInventory", "成都可用库存");
         headerMapper.put("shengyangPrice", "沈阳库存");
         headerMapper.put("shengyangInventory", "沈阳可用库存");
+
+        fileInputStream.close();
 
         ExcelUtils.export(headerMapper, componentsList, userDir + File.separator + "bmw_" + System.currentTimeMillis() + ".xlsx");
     }
