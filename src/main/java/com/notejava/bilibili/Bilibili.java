@@ -1,9 +1,9 @@
-package com.notejava.demo.bilibili;
+package com.notejava.bilibili;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.notejava.demo.tool.ExcelUtils;
+import com.notejava.tool.ExcelUtils;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;

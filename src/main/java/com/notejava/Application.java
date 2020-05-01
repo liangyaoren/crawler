@@ -1,6 +1,6 @@
-package com.notejava.demo;
+package com.notejava;
 
-import com.notejava.demo.bilibili.Bilibili;
+import com.notejava.bilibili.Bilibili;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

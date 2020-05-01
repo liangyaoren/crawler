@@ -1,4 +1,4 @@
-package com.notejava.demo.bilibili;
+package com.notejava.bilibili;
 
 import lombok.Data;
 

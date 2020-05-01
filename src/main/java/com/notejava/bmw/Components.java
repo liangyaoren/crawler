@@ -1,4 +1,4 @@
-package com.notejava.demo.bmw;
+package com.notejava.bmw;
 
 import lombok.Data;
 
