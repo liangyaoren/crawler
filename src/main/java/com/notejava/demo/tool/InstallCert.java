@@ -1,4 +1,4 @@
-package com.notejava.demo;
+package com.notejava.demo.tool;
 /*
  * Copyright 2006 Sun Microsystems, Inc.  All Rights Reserved.
  *
