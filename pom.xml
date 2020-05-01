@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.notejava</groupId>
-    <artifactId>bmw-crawler</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>一个 bmw 网站的爬虫</name>
+    <artifactId>crawler</artifactId>
+    <version>1.0</version>
+    <name>一个爬虫</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -22,6 +22,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
@@ -59,6 +64,14 @@
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.68</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
