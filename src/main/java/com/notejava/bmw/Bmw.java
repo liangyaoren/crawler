@@ -228,7 +228,7 @@ public class Bmw {
     private static Map<String, String> getCookiesMap() throws IOException {
         if (cookiesMap.isEmpty()) {
             Connection connect = Jsoup.connect("https://www.dwp.bmw-brilliance.cn/wit");
-            connect.header("Authorization", "Basic NDYxMzZwYXI6NVRHQk5KSTk=");
+            connect.header("Authorization", "Basic MzgzMjNQQVI6Nnlobjhpayw=");
             Connection.Response response = connect.execute();
             Map<String, String> cookies = response.cookies();
             //System.out.println(cookies);
