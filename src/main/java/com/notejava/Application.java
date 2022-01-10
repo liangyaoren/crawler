@@ -12,7 +12,6 @@ public class Application {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         SpringApplication.run(Application.class, args);
-        Bmw.test();
-        //Bilibili.test();
+        Bilibili.test();
     }
 }
